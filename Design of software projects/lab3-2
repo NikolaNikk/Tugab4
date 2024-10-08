@@ -1,0 +1,86 @@
+namespace lab3_2
+{
+    class Stack<T>
+    {
+        private T[] stack;
+        private int elemnts_in_stack = 0;
+        private int Size;
+        public Stack(int size)
+        {
+            stack = new T[size];
+            Size = size;
+
+        }
+
+        public T Pop()
+        {
+            if (!EmptyCheck())
+            {
+                elemnts_in_stack--;
+                Console.WriteLine($"Popped value = {stack[elemnts_in_stack]}");
+                
+            }
+            else { Console.WriteLine("Stack is empty!"); }
+            return default;
+        }
+
+        public void Push(T value)
+        {
+            if (!FullCheck())
+            {
+                stack[elemnts_in_stack] = value;
+                elemnts_in_stack++;
+                Console.WriteLine($"Pushed value = {value} ");
+            }
+            else { Console.WriteLine("Stack is full!"); }
+        }
+
+        public bool FullCheck()
+        {
+            return elemnts_in_stack == Size;
+        }
+
+        public bool EmptyCheck()
+        {
+            return elemnts_in_stack == 0;
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter size of stack:");
+            int size = int.Parse(Console.ReadLine());
+
+            Stack<int> stack = new Stack<int>(size);
+
+            Console.WriteLine("Possible commands: pop, push, exit");
+
+            while (true)
+            {
+                Console.WriteLine("Enter command:");
+                string command = Console.ReadLine();
+
+                if (command == "push")
+                {
+                    Console.WriteLine("Enter value to push:");
+                    int value = int.Parse(Console.ReadLine());
+                    stack.Push(value);
+                }
+                else if (command == "pop")
+                {
+                    stack.Pop();
+                }
+                else if (command == "exit")
+                {
+                    Console.WriteLine("Exiting...");
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Error! Please enter one of the following: pop, push, exit");
+                }
+            }
+        }
+    }
+}
