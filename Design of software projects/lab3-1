@@ -1,0 +1,109 @@
+using System;
+using System.Data;
+using System.Reflection;
+
+namespace lab3_1
+{
+    
+        class Array<T>
+        {
+            private T[] array;
+
+            public Array(int size)
+            {
+                array = new T[size];
+            }
+
+            public void Print()
+            {
+                foreach (var element in array)
+                {
+                    Console.WriteLine(element);
+                }
+            }
+
+            public void Set(T value, int index)
+            {
+                if (index >= 0 && index < array.Length)
+                {
+                    array[index] = value;
+                }
+                else
+                {
+                    Console.WriteLine("index not in range!");
+                }
+            }
+
+            public T Get(int index)
+            {
+                if (index >= 0 && index < array.Length)
+                {
+                    return array[index];
+                }
+                else
+                {
+                    Console.WriteLine("index not in range!");
+                    return default(T);
+                }
+            }
+        }
+        class Program
+        {
+            static void Main(string[] args)
+            {
+                Console.WriteLine("Enter size of the array:");
+                int size = int.Parse(Console.ReadLine());
+
+                Array<int> array = new Array<int>(size);
+
+                Console.WriteLine("Possible commands: set, get, print, exit");
+
+                while (true)
+                {
+                    Console.WriteLine("Enter command:");
+                    string command = Console.ReadLine();
+
+
+                    if (command == "set")
+                    {
+                        Console.Write("Enter value to set: ");
+                        int value = int.Parse(Console.ReadLine());
+
+                        Console.Write($"Enter index of element to set in range 0 - {size}: ");
+                        int index = int.Parse(Console.ReadLine());
+
+                        array.Set(value, index);
+                        Console.WriteLine($"Element set at index [{index}] with a value = [{value}] !");
+                    }
+
+                    else if (command == "get")
+                    {
+                        Console.Write($"Enter index of element to get in range 0 - {size}: ");
+                        int index = int.Parse(Console.ReadLine());
+
+                        Console.WriteLine($"Value of elem[{index}] : {array.Get(index)}");
+                    }
+
+                    else if (command == "print")
+                    {
+                        Console.WriteLine("Array contents:");
+                        array.Print();
+                    }
+
+                    else if (command == "exit")
+                    {
+                        Console.WriteLine("Exiting...");
+                        break;
+                    }
+
+                    else
+                    {
+                        Console.WriteLine("Error! Please enter one of the following: set, get, print, exit");
+                       
+                    }
+                }
+
+            }
+        }
+    
+}
