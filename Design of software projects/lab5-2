@@ -1,0 +1,122 @@
+namespace lab5_2
+{
+    public interface Shape
+    {
+        void ElementsInput();
+        double CalculateArea();
+        void DisplayInfo();
+    }
+
+    public class Circle : Shape
+    {
+        private double radius;
+
+        public void ElementsInput()
+        {
+            Console.WriteLine("Circle radius=");
+            radius = Convert.ToDouble(Console.ReadLine());
+        }
+
+        public double CalculateArea()
+        {
+            return Math.PI * radius * radius;
+        }
+
+        public void DisplayInfo()
+        {
+            Console.WriteLine($"Circle area= {CalculateArea()}");
+        }
+    }
+
+    public class Rectangle : Shape
+    {
+        private double width, height;
+
+        public void ElementsInput()
+        {
+            Console.WriteLine("Rectangle width=");
+            width = Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine("Rectangle hight=");
+            height = Convert.ToDouble(Console.ReadLine());
+        }
+
+        public double CalculateArea()
+        {
+            return width * height;
+        }
+
+        public void DisplayInfo()
+        {
+            Console.WriteLine($"Rectangle area=: {CalculateArea()}");
+        }
+    }
+
+    public class Square : Shape
+    {
+        private double side;
+
+        public void ElementsInput()
+        {
+            Console.WriteLine("square side =");
+            side = Convert.ToDouble(Console.ReadLine());
+        }
+
+        public double CalculateArea()
+        {
+            return side * side;
+        }
+
+        public void DisplayInfo()
+        {
+            Console.WriteLine($"square area= {CalculateArea()}");
+        }
+    }
+    public interface ShapeFactory
+    {
+        Shape CreateShape();
+    }
+
+    public class CircleFactory : ShapeFactory
+    {
+        public Shape CreateShape()
+        {
+            return new Circle();
+        }
+    }
+
+    public class RectangleFactory : ShapeFactory
+    {
+        public Shape CreateShape()
+        {
+            return new Rectangle();
+        }
+    }
+
+    public class SquareFactory : ShapeFactory
+    {
+        public Shape CreateShape()
+        {
+            return new Square();
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            ShapeFactory[] factories = { new CircleFactory(), new RectangleFactory(), new SquareFactory() };
+            Shape[] shapes = new Shape[3];
+
+            for (int i = 0; i < factories.Length; i++)
+            {
+                shapes[i] = factories[i].CreateShape();
+                shapes[i].ElementsInput();
+            }
+
+            Console.WriteLine("\nShapes infos:");
+            foreach (Shape shape in shapes)
+            {
+                shape.DisplayInfo();
+            }
+        }
+    }
+}
